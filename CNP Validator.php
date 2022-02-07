@@ -47,10 +47,29 @@ function isCnpValid(string $value): bool
                             //index adjustment
                             $countySelector = (int)$separatedCnp[4]-1;
                             if($separatedCnp[5] >= "001" && $separatedCnp[5] <= "999"){ //check for NNN
-                                echo $sexCnp." born on " . $separatedCnp[3] . "." . $separatedCnp[2] . ".19" . $separatedCnp[1] . " in ".$countyArray[$countySelector]." county".PHP_EOL;
-                                $validStatus = true;
-                            }
+                                //logic for Control Number
+                                $controlNumber = 279146358279;
+                                $controlNumberSplit = str_split($controlNumber);
+                                $cnpAsInt = (int)$value;
+                                $cnpAsIntSplit = str_split($cnpAsInt);
+                                $controlSum = 0;
 
+                                for($x = 0; $x < 12; $x++){
+                                    $digitMultiplication = $controlNumberSplit[$x] * $cnpAsIntSplit[$x];
+                                    $controlSum+=$digitMultiplication;
+                                }
+
+                                $controlSumRemainder = $controlSum % 11;
+
+                                if($controlSumRemainder == 10 || $controlSumRemainder == 0){
+                                    $controlSumRemainder = 1;
+                                }
+
+                                if($separatedCnp[6] == $controlSumRemainder){
+                                    echo $sexCnp." born on " . $separatedCnp[3] . "." . $separatedCnp[2] . ".19" . $separatedCnp[1] . " in ".$countyArray[$countySelector]." county".PHP_EOL;
+                                    $validStatus = true;
+                                }
+                            }
                         }
                     }
                 }
@@ -62,4 +81,4 @@ function isCnpValid(string $value): bool
 
 }
 
-isCnpValid(2970604203671);
+isCnpValid(2991201019114);
