@@ -209,3 +209,8 @@ function isCnpValid(string $value): bool
 
 
 $testMethodArray = generateMultipleCnp(5);
+
+foreach ($testMethodArray as $cnpVariant){
+    echo "CNP to be tested is: ".$cnpVariant.PHP_EOL;
+    isCnpValid($cnpVariant);
+}
