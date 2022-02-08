@@ -41,7 +41,7 @@ function isCnpValid(string $value): bool
                 $sexCnp = "Foreign citizen ".$sexCnp;
             }
             if($separatedCnp[0] == 9){
-                $sexCnp = "Foreign citizen ";
+                $sexCnp = "Foreign citizen";
             }
             if ($separatedCnp[1] >= "00" && $separatedCnp[1] <= "99") { //year checking
                 if ($separatedCnp[2] >= "01" && $separatedCnp[2] <= "12") { //month checking
@@ -212,6 +212,10 @@ function isCnpValid(string $value): bool
                 echo "Year number is out of range. CNP is NOT valid" . PHP_EOL;
             }
         }
+        //final control message
+        else{
+            echo "Sex integer is out of range".PHP_EOL;
+        }
 
 
     }
@@ -219,6 +223,8 @@ function isCnpValid(string $value): bool
 
 }
 //check for 20th Century
-isCnpValid(9240228016991);
+isCnpValid(1950112125791);
 //check for 19th Century
 isCnpValid(3991201019407);
+//check for 21st Century
+isCnpValid(6220201465183);
