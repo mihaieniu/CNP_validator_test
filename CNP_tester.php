@@ -3,7 +3,7 @@
 function generateMultipleCnp (int $numberOfRepeats) : Array {
     $cnpArray = [];
 
-    for($x=1; $x<=$numberOfRepeats; $x++){
+    for($x=0; $x<$numberOfRepeats; $x++){
         $sValue = rand(1,9);
 
         $currentYear = date("y");
@@ -24,9 +24,6 @@ function generateMultipleCnp (int $numberOfRepeats) : Array {
             $sexCnp = "Foreign citizen";
         }
         $yValue = rand(0,99);
-
-
-
 
         if($yValue<10){
             $yValue = (string)$yValue;
@@ -54,7 +51,7 @@ function generateMultipleCnp (int $numberOfRepeats) : Array {
         }
         $dValue = (string)$dValue;
 
-        $cValue = rand(1, 52);
+        $cValue = rand(1, 51);
         if($cValue<10){
             $cValue = (string)$cValue;
             $cValue = "0".$cValue;
@@ -71,10 +68,31 @@ function generateMultipleCnp (int $numberOfRepeats) : Array {
         }
         $nValue = (string)$nValue;
 
+        $partialCnp = $sValue.$yValue.$mValue.$dValue.$cValue.$nValue;
 
+        $controlNumber = "279146358279";
+        $controlNumberSplit = str_split($controlNumber);
+        $partialCnpSplit = str_split($partialCnp);
+        $controlSum = 0;
 
+        for ($x = 0; $x < 12; $x++) {
+            $digitMultiplication = (int)$controlNumberSplit[$x] * (int)$partialCnpSplit[$x];
+            $controlSum += $digitMultiplication;
+        }
+
+        $controlSumRemainder = $controlSum % 11;
+
+        if ($controlSumRemainder == 10) {
+            $controlSumRemainder = 1;
+        }
+
+        $fullCnp = $partialCnp.$controlSumRemainder;
+
+        $cnpArray[$x] = $fullCnp;
     }
 
 
     return $cnpArray;
 }
+
+generateMultipleCnp(5);
