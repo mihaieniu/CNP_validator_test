@@ -216,5 +216,16 @@ $testMethodArray = generateMultipleCnp(5);
 
 foreach ($testMethodArray as $cnpVariant){
     echo "CNP to be tested is: ".$cnpVariant.PHP_EOL;
-    isCnpValid($cnpVariant);
+
+    $validationBool = isCnpValid($cnpVariant);
+
+    if($validationBool){
+        echo " ".PHP_EOL;
+        echo "True".PHP_EOL;
+        echo " ".PHP_EOL;
+    }else{
+        echo " ".PHP_EOL;
+        echo "False".PHP_EOL;
+        echo " ".PHP_EOL;
+    }
 }
