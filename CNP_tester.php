@@ -6,23 +6,8 @@ function generateMultipleCnp (int $numberOfRepeats) : array {
     for($x=0; $x<$numberOfRepeats; $x++){
         $sValue = rand(1,9);
 
-        $currentYear = date("y");
-        $currentMonth = date("m");
-        $currentDay = date("d");
         $yValuePrefix = "19";
 
-        //identify sex for troubleshooting
-        if ($sValue % 2 == 1) {
-            $sexCnp = "M";
-        } else {
-            $sexCnp = "F";
-        }
-        //add foreign citizen tag
-        if($sValue == 7 || $sValue == 8){
-            $sexCnp = "Foreign citizen ".$sexCnp;
-        }elseif($sValue == 9){
-            $sexCnp = "Foreign citizen";
-        }
         $yValue = rand(0,99);
 
         if($yValue<10){
