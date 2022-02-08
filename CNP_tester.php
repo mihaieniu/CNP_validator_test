@@ -10,23 +10,48 @@ function generateMultipleCnp (int $numberOfRepeats) : Array {
         $currentMonth = date("m");
         $currentDay = date("d");
 
-        if($sValue == 1 || $sValue == 2){
-            $yValue = rand(0,99);
-            if($yValue<10){
-                $yValue = "0".$yValue;
-            }
-            $yFullValue = "19".$yValue;
-            $mValue = rand(1,12);
-            if($mValue<10){
-                $mValue = "0".$mValue;
-            }
-            $dValue = rand(0,cal_days_in_month(CAL_GREGORIAN, $mValue, $yFullValue));
-            if($dValue < 10){
-                $dValue = "0".$dValue;
-            }
+        $yValue = rand(0,99);
 
 
+        if($yValue<10){
+            $yValue = (string)$yValue;
+            $yValue = "0".$yValue;
         }
+        $yValue = (string)$yValue;
+        $yFullValue = "19".$yValue;
+
+        $mValue = rand(1,12);
+        if($mValue<10){
+            $mValue = (string)$mValue;
+            $mValue = "0".$mValue;
+        }
+        $mValue = (string)$mValue;
+
+        $dValue = rand(1,cal_days_in_month(CAL_GREGORIAN, $mValue, $yFullValue));
+        if($dValue < 10){
+            $dValue = (string)$dValue;
+            $dValue = "0".$dValue;
+        }
+        $dValue = (string)$dValue;
+
+        $cValue = rand(1, 52);
+        if($cValue<10){
+            $cValue = (string)$cValue;
+            $cValue = "0".$cValue;
+        }
+        $cValue = (string)$cValue;
+
+        $nValue = rand(1, 999);
+        if($nValue<10){
+            $nValue = (string)$nValue;
+            $nValue = "00".$nValue;
+        }elseif($nValue >= 10 && $nValue < 100){
+            $nValue = (string)$nValue;
+            $nValue = "0".$nValue;
+        }
+        $nValue = (string)$nValue;
+
+
 
     }
 
