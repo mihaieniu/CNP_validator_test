@@ -30,12 +30,18 @@ function isCnpValid(string $value): bool
         $currentYear = date("y");
 
         //begin 20th century nested if statement
-        if ($separatedCnp[0] == "1" || $separatedCnp[0] == "2") { //sex check for the 20th century
+        if ($separatedCnp[0] == "1" || $separatedCnp[0] == "2" || $separatedCnp[0] == "7" || $separatedCnp[0] == "8" || $separatedCnp[0] == "9") { //sex check for the 20th century
             //identify sex for troubleshooting
             if ($separatedCnp[0] % 2 == 1) {
                 $sexCnp = "M";
             } else {
                 $sexCnp = "F";
+            }
+            if($separatedCnp[0] == 7 || $separatedCnp[0] == 8){
+                $sexCnp = "Foreign citizen ".$sexCnp;
+            }
+            if($separatedCnp[0] == 9){
+                $sexCnp = "Foreign citizen ";
             }
             if ($separatedCnp[1] >= "00" && $separatedCnp[1] <= "99") { //year checking
                 if ($separatedCnp[2] >= "01" && $separatedCnp[2] <= "12") { //month checking
@@ -90,6 +96,7 @@ function isCnpValid(string $value): bool
         } else {
             echo "Sex number is out of range. CNP is NOT valid" . PHP_EOL;
         }
+
         //begin 19th century nested if statement
         if ($separatedCnp[0] == "3" || $separatedCnp[0] == "4") { //sex check for the 20th century
             //identify sex for troubleshooting
@@ -151,6 +158,70 @@ function isCnpValid(string $value): bool
         } else {
             echo "Sex number is out of range. CNP is NOT valid" . PHP_EOL;
         }
+
+        //begin 21st century nested if statement
+        if ($separatedCnp[0] == "1" || $separatedCnp[0] == "2") { //sex check for the 20th century
+            //identify sex for troubleshooting
+            if ($separatedCnp[0] % 2 == 1) {
+                $sexCnp = "M";
+            } else {
+                $sexCnp = "F";
+            }
+            if ($separatedCnp[1] >= "00" && $separatedCnp[1] <= "99") { //year checking
+                if ($separatedCnp[2] >= "01" && $separatedCnp[2] <= "12") { //month checking
+                    $cnpFullFormatYear = "19" . $separatedCnp[1];
+                    if ($separatedCnp[3] >= "01" && $separatedCnp[3] <= cal_days_in_month(CAL_GREGORIAN, $separatedCnp[2], $cnpFullFormatYear)) { //day variable validity cheking | including check for unequal months and leap years
+                        if ($separatedCnp[4] >= "01" && $separatedCnp[4] <= "52") {
+                            //Create array to identify county
+                            $countyArray = array("Alba", "Arad", "Arges", "Bacau", "Bihor", "Bistrita-Nasaud", "Botosani", "Brasov", "Braila", "Buzau", "Caras-Severin", "Cluj", "Constanta", "Covasna", "Dimbovita", "Dolj", "Galati", "Gorj", "Harghita", "Hunedoara", "Ialomita", "Iasi", "Ilfov", "Maramures", "Mehedinti", "Mures", "Neamt", "Olt", "Prahova", "Satu Mare", "Salaj", "Sibiu", "Suceava", "Teleorman", "Timis", "Tulcea", "Vaslui", "Valcea", "Vrancea", "Bucuresti", "Bucuresti", "Bucuresti", "Bucuresti", "Bucuresti", "Bucuresti", "Bucuresti", "Calarasi", "Giurgiu");
+                            //index adjustment
+                            $countySelector = (int)$separatedCnp[4] - 1;
+                            if ($separatedCnp[5] >= "001" && $separatedCnp[5] <= "999") { //check for NNN
+                                //logic for Control Number
+                                $controlNumber = 279146358279;
+                                $controlNumberSplit = str_split($controlNumber);
+                                $cnpAsInt = (int)$value;
+                                $cnpAsIntSplit = str_split($cnpAsInt);
+                                $controlSum = 0;
+
+                                for ($x = 0; $x < 12; $x++) {
+                                    $digitMultiplication = $controlNumberSplit[$x] * $cnpAsIntSplit[$x];
+                                    $controlSum += $digitMultiplication;
+                                }
+
+                                $controlSumRemainder = $controlSum % 11;
+
+                                if ($controlSumRemainder == 10 || $controlSumRemainder == 0) {
+                                    $controlSumRemainder = 1;
+                                }
+
+                                if ($separatedCnp[6] == $controlSumRemainder) { //check control number validity
+                                    echo $sexCnp . " born on " . $separatedCnp[3] . "." . $separatedCnp[2] . ".19" . $separatedCnp[1] . " in " . $countyArray[$countySelector] . " county" . PHP_EOL;
+                                    $validStatus = true;
+                                    echo "CNP is valid" . PHP_EOL;
+                                } else {
+                                    echo "Control number is not correct. CNP is NOT valid" . PHP_EOL;
+                                }
+                            } else {
+                                echo "Unique number is out of range. CNP is NOT valid" . PHP_EOL;
+                            }
+                        } else {
+                            echo "County number is out of range. CNP is NOT valid" . PHP_EOL;
+                        }
+                    } else {
+                        echo "Day number is out of range. CNP is NOT valid" . PHP_EOL;
+                    }
+                } else {
+                    echo "Month number is out of range. CNP is NOT valid" . PHP_EOL;
+                }
+            } else {
+                echo "Year number is out of range. CNP is NOT valid" . PHP_EOL;
+            }
+        } else {
+            echo "Sex number is out of range. CNP is NOT valid" . PHP_EOL;
+        }
+
+
     }
         return $validStatus;
 
