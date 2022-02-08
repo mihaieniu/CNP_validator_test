@@ -93,12 +93,9 @@ function isCnpValid(string $value): bool
             } else {
                 echo "Year number is out of range. CNP is NOT valid" . PHP_EOL;
             }
-        } else {
-            echo "Sex number is out of range. CNP is NOT valid" . PHP_EOL;
         }
-
         //begin 19th century nested if statement
-        if ($separatedCnp[0] == "3" || $separatedCnp[0] == "4") { //sex check for the 20th century
+        elseif ($separatedCnp[0] == "3" || $separatedCnp[0] == "4") { //sex check for the 20th century
             //identify sex for troubleshooting
             if ($separatedCnp[0] % 2 == 1) {
                 $sexCnp = "M";
@@ -155,12 +152,9 @@ function isCnpValid(string $value): bool
             } else {
                 echo "Year number is out of range. CNP is NOT valid" . PHP_EOL;
             }
-        } else {
-            echo "Sex number is out of range. CNP is NOT valid" . PHP_EOL;
         }
-
         //begin 21st century nested if statement
-        if ($separatedCnp[0] == "5" || $separatedCnp[0] == "6") { //sex check for the 20th century
+        elseif ($separatedCnp[0] == "5" || $separatedCnp[0] == "6") { //sex check for the 20th century
             //identify sex for troubleshooting
             if ($separatedCnp[0] % 2 == 1) {
                 $sexCnp = "M";
@@ -217,8 +211,6 @@ function isCnpValid(string $value): bool
             } else {
                 echo "Year number is out of range. CNP is NOT valid" . PHP_EOL;
             }
-        } else {
-            echo "Sex number is out of range. CNP is NOT valid" . PHP_EOL;
         }
 
 
