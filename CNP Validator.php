@@ -51,14 +51,14 @@ function isCnpValid(string $value): bool
             if($separatedCnp[0] == 5 || $separatedCnp[0] == 6){
                 $cnpFullFormatYear = "20" . $separatedCnp[1];
                 if($separatedCnp[1] > $currentYear){
-                    echo "Year number is out of range. CNP is NOT valid" . PHP_EOL;
+                    echo "Date is in the future. CNP is NOT valid" . PHP_EOL; //don't permit a date later than current
                     return false;
                 }
             }elseif($separatedCnp[0] == 3 || $separatedCnp[0] == 4){
                 $cnpFullFormatYear = "18" . $separatedCnp[1];
             }
 
-                if ($separatedCnp[1] >= "00" && $separatedCnp[1] <= "99") { //year checking
+                if ($separatedCnp[1] >= "00" && $separatedCnp[1] <= "99") { //year checking //redundant check since there aren't other options
                 if ($separatedCnp[2] >= "01" && $separatedCnp[2] <= "12") { //month checking
                     if ($separatedCnp[3] >= "01" && $separatedCnp[3] <= cal_days_in_month(CAL_GREGORIAN, $separatedCnp[2], $cnpFullFormatYear)) { //day variable validity cheking | including check for unequal months and leap years
                         if ($separatedCnp[4] >= "01" && $separatedCnp[4] <= "52") {
