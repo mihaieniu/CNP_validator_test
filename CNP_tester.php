@@ -1,6 +1,6 @@
 <?php
 
-function generateMultipleCnp (int $numberOfRepeats) : Array {
+function generateMultipleCnp (int $numberOfRepeats) : array {
     $cnpArray = [];
 
     for($x=0; $x<$numberOfRepeats; $x++){
@@ -75,8 +75,8 @@ function generateMultipleCnp (int $numberOfRepeats) : Array {
         $partialCnpSplit = str_split($partialCnp);
         $controlSum = 0;
 
-        for ($x = 0; $x < 12; $x++) {
-            $digitMultiplication = (int)$controlNumberSplit[$x] * (int)$partialCnpSplit[$x];
+        for ($y = 0; $y < 12; $y++) {
+            $digitMultiplication = (int)$controlNumberSplit[$y] * (int)$partialCnpSplit[$y];
             $controlSum += $digitMultiplication;
         }
 
@@ -87,12 +87,11 @@ function generateMultipleCnp (int $numberOfRepeats) : Array {
         }
 
         $fullCnp = $partialCnp.$controlSumRemainder;
-
         $cnpArray[$x] = $fullCnp;
     }
-
 
     return $cnpArray;
 }
 
-generateMultipleCnp(5);
+$returnArray = generateMultipleCnp(5);
+print_r($returnArray);
