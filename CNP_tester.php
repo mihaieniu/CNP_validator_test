@@ -9,8 +9,23 @@ function generateMultipleCnp (int $numberOfRepeats) : Array {
         $currentYear = date("y");
         $currentMonth = date("m");
         $currentDay = date("d");
+        $yValuePrefix = "19";
 
+        //identify sex for troubleshooting
+        if ($sValue % 2 == 1) {
+            $sexCnp = "M";
+        } else {
+            $sexCnp = "F";
+        }
+        //add foreign citizen tag
+        if($sValue == 7 || $sValue == 8){
+            $sexCnp = "Foreign citizen ".$sexCnp;
+        }elseif($sValue == 9){
+            $sexCnp = "Foreign citizen";
+        }
         $yValue = rand(0,99);
+
+
 
 
         if($yValue<10){
@@ -18,7 +33,12 @@ function generateMultipleCnp (int $numberOfRepeats) : Array {
             $yValue = "0".$yValue;
         }
         $yValue = (string)$yValue;
-        $yFullValue = "19".$yValue;
+        if($sValue == 5 || $sValue == 6){
+            $yValuePrefix = "20";
+        }elseif($sValue == 3 || $sValue == 4){
+            $yValuePrefix = "18";
+        }
+        $yValueFull = $yValuePrefix.$yValue;
 
         $mValue = rand(1,12);
         if($mValue<10){
@@ -27,7 +47,7 @@ function generateMultipleCnp (int $numberOfRepeats) : Array {
         }
         $mValue = (string)$mValue;
 
-        $dValue = rand(1,cal_days_in_month(CAL_GREGORIAN, $mValue, $yFullValue));
+        $dValue = rand(1,cal_days_in_month(CAL_GREGORIAN, $mValue, $yValueFull));
         if($dValue < 10){
             $dValue = (string)$dValue;
             $dValue = "0".$dValue;
