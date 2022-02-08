@@ -89,7 +89,7 @@ function isCnpValid(string $value): bool
 
                                 $controlSumRemainder = $controlSum % 11;
 
-                                if ($controlSumRemainder == 10 || $controlSumRemainder == 0) {
+                                if ($controlSumRemainder == 10) {
                                     $controlSumRemainder = 1;
                                 }
 
@@ -122,6 +122,6 @@ function isCnpValid(string $value): bool
 //check for 20th Century
 isCnpValid(1950112125791);
 //check for 19th Century
-isCnpValid(3991201019407);
+isCnpValid(9390921516872);
 //check for 21st Century
-isCnpValid(6220201465183);
+isCnpValid(5801213198306);
