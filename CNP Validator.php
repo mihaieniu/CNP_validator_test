@@ -31,7 +31,11 @@ function isCnpValid(string $value): bool
         //begin condensed nested if statement
         if ($separatedCnp[0] >= "1" && $separatedCnp[0] <= 9) { //sex check
 
+            //initial variable setting for date checking
             $currentYear = date("y");
+            $currentMonth = date("m");
+            $currentDay = date("d");
+
             $cnpFullFormatYear = "19" . $separatedCnp[1];
 
             //identify sex for troubleshooting
@@ -50,9 +54,13 @@ function isCnpValid(string $value): bool
             //adjustment for different centuries
             if($separatedCnp[0] == 5 || $separatedCnp[0] == 6){
                 $cnpFullFormatYear = "20" . $separatedCnp[1];
-                if($separatedCnp[1] > $currentYear){
-                    echo "Date is in the future. CNP is NOT valid" . PHP_EOL; //don't permit a date later than current
-                    return false;
+                if($separatedCnp[1] >= $currentYear){
+                    if($separatedCnp[2] >= $currentMonth){
+                        if($separatedCnp[3] > $currentDay){
+                            echo "Date is in the future. CNP is NOT valid" . PHP_EOL; //don't permit a date later than current
+                            return false;
+                        }
+                    }
                 }
             }elseif($separatedCnp[0] == 3 || $separatedCnp[0] == 4){
                 $cnpFullFormatYear = "18" . $separatedCnp[1];
