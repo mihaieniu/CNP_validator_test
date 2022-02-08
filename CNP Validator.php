@@ -70,6 +70,10 @@ function isCnpValid(string $value): bool
                 if ($separatedCnp[2] >= "01" && $separatedCnp[2] <= "12") { //month checking
                     if ($separatedCnp[3] >= "01" && $separatedCnp[3] <= cal_days_in_month(CAL_GREGORIAN, $separatedCnp[2], $cnpFullFormatYear)) { //day variable validity cheking | including check for unequal months and leap years
                         if ($separatedCnp[4] >= "01" && $separatedCnp[4] <= "52") {
+                            if($separatedCnp[4] > 46 && $separatedCnp[4] < 51){
+                                echo "County is out of range. CNP is NOT valid".PHP_EOL;
+                                return false;
+                            }
                             //Create array to identify county
                             $countyArray = array("Alba", "Arad", "Arges", "Bacau", "Bihor", "Bistrita-Nasaud", "Botosani", "Brasov", "Braila", "Buzau", "Caras-Severin", "Cluj", "Constanta", "Covasna", "Dimbovita", "Dolj", "Galati", "Gorj", "Harghita", "Hunedoara", "Ialomita", "Iasi", "Ilfov", "Maramures", "Mehedinti", "Mures", "Neamt", "Olt", "Prahova", "Satu Mare", "Salaj", "Sibiu", "Suceava", "Teleorman", "Timis", "Tulcea", "Vaslui", "Valcea", "Vrancea", "Bucuresti", "Bucuresti", "Bucuresti", "Bucuresti", "Bucuresti", "Bucuresti", "Bucuresti", "Calarasi", "Giurgiu");
                             //index adjustment
