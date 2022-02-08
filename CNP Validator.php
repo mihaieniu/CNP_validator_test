@@ -160,16 +160,16 @@ function isCnpValid(string $value): bool
         }
 
         //begin 21st century nested if statement
-        if ($separatedCnp[0] == "1" || $separatedCnp[0] == "2") { //sex check for the 20th century
+        if ($separatedCnp[0] == "5" || $separatedCnp[0] == "6") { //sex check for the 20th century
             //identify sex for troubleshooting
             if ($separatedCnp[0] % 2 == 1) {
                 $sexCnp = "M";
             } else {
                 $sexCnp = "F";
             }
-            if ($separatedCnp[1] >= "00" && $separatedCnp[1] <= "99") { //year checking
+            if ($separatedCnp[1] >= "00" && $separatedCnp[1] <= $currentYear) { //year checking up to current year
                 if ($separatedCnp[2] >= "01" && $separatedCnp[2] <= "12") { //month checking
-                    $cnpFullFormatYear = "19" . $separatedCnp[1];
+                    $cnpFullFormatYear = "20" . $separatedCnp[1];
                     if ($separatedCnp[3] >= "01" && $separatedCnp[3] <= cal_days_in_month(CAL_GREGORIAN, $separatedCnp[2], $cnpFullFormatYear)) { //day variable validity cheking | including check for unequal months and leap years
                         if ($separatedCnp[4] >= "01" && $separatedCnp[4] <= "52") {
                             //Create array to identify county
@@ -196,7 +196,7 @@ function isCnpValid(string $value): bool
                                 }
 
                                 if ($separatedCnp[6] == $controlSumRemainder) { //check control number validity
-                                    echo $sexCnp . " born on " . $separatedCnp[3] . "." . $separatedCnp[2] . ".19" . $separatedCnp[1] . " in " . $countyArray[$countySelector] . " county" . PHP_EOL;
+                                    echo $sexCnp . " born on " . $separatedCnp[3] . "." . $separatedCnp[2] . ".20" . $separatedCnp[1] . " in " . $countyArray[$countySelector] . " county" . PHP_EOL;
                                     $validStatus = true;
                                     echo "CNP is valid" . PHP_EOL;
                                 } else {
